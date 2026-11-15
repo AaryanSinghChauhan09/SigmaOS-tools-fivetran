@@ -1,0 +1,8 @@
+[package]
+name = "SigmaOS-tools-fivetran"
+version = "0.1.0"
+edition = "2021"
+description = "Fivetran connector schema validation and sync engine"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
