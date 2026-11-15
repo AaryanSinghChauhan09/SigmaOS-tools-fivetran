@@ -1,3 +1,4 @@
+#![allow(non_snake_case)]
 //! Fivetran Connector Sync Engine for SigmaOS
 use std::collections::HashMap;
 
