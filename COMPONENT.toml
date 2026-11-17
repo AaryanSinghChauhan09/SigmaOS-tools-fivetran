@@ -3,7 +3,7 @@ name = "SigmaOS-tools-fivetran"
 tier = 2
 stability = "scaffold"
 language = "rust"
-description = "tools-fivetran component"
+description = "SigmaOS Tools Fivetran - Connector schema validation and sync engine"
 upstream = []
 
 [contract]
