@@ -1,3 +1,4 @@
+#![forbid(unsafe_code)]
 #![allow(non_snake_case)]
 //! Fivetran Connector Sync Engine for SigmaOS
 use std::collections::HashMap;
@@ -85,5 +86,44 @@ mod tests {
         // Assert
         assert_eq!(result.synced_count, 1);
         assert_eq!(result.rejected_count, 1);
+    }
+}
+
+#[cfg(test)]
+mod fivetran_extra_tests {
+    use super::*;
+
+    #[test]
+    fn test_fivetran_all_valid_records_batch_aaa() {
+        // Arrange
+        let connector = FivetranConnector::new("events", vec!["id", "type"]);
+        let mut f1 = HashMap::new();
+        f1.insert("id".into(), "1".into());
+        f1.insert("type".into(), "click".into());
+        let records = vec![FivetranRecord { id: "e1".into(), fields: f1 }];
+        // Act
+        let result = connector.sync_batch(records);
+        // Assert
+        assert_eq!(result.synced_count, 1);
+        assert_eq!(result.rejected_count, 0);
+    }
+
+    #[test]
+    fn test_fivetran_empty_batch_aaa() {
+        // Arrange
+        let connector = FivetranConnector::new("events", vec!["id"]);
+        // Act
+        let result = connector.sync_batch(Vec::new());
+        // Assert
+        assert_eq!(result.synced_count, 0);
+        assert_eq!(result.rejected_count, 0);
+    }
+
+    #[test]
+    fn test_fivetran_destination_table_name_aaa() {
+        // Arrange & Act
+        let connector = FivetranConnector::new("analytics_users", vec![]);
+        // Assert
+        assert_eq!(connector.destination_table, "analytics_users");
     }
 }
